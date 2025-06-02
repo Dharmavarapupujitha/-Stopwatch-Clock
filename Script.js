@@ -1,24 +1,21 @@
-// Real-Time Clock
+// ⏰ Real-Time Clock
 function updateClock() {
   const now = new Date();
-  const timeString = now.toLocaleTimeString();
-  document.getElementById('clock').textContent = timeString;
+  document.getElementById("clock").textContent = now.toLocaleTimeString();
 }
 setInterval(updateClock, 1000);
-updateClock(); // Initial call
+updateClock(); // Show time immediately
 
-// Stopwatch
-let timer;
+// ⏱️ Stopwatch Logic
 let [hours, minutes, seconds] = [0, 0, 0];
 let running = false;
+let timer;
 
 function updateStopwatch() {
-  const display = document.getElementById('stopwatch');
-  const formatted =
-    String(hours).padStart(2, '0') + ':' +
-    String(minutes).padStart(2, '0') + ':' +
-    String(seconds).padStart(2, '0');
-  display.textContent = formatted;
+  document.getElementById("stopwatch").textContent =
+    String(hours).padStart(2, "0") + ":" +
+    String(minutes).padStart(2, "0") + ":" +
+    String(seconds).padStart(2, "0");
 }
 
 function start() {
@@ -46,9 +43,7 @@ function stop() {
 
 function reset() {
   clearInterval(timer);
-  running = false;
   [hours, minutes, seconds] = [0, 0, 0];
+  running = false;
   updateStopwatch();
 }
-
-window.onload = updateStopwatch;
