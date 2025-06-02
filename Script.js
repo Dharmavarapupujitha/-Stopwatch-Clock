@@ -1,41 +1,54 @@
-// Clock
+// Real-Time Clock
 function updateClock() {
   const now = new Date();
-  const timeStr = now.toLocaleTimeString();
-  document.getElementById('clock').textContent = timeStr;
+  const timeString = now.toLocaleTimeString();
+  document.getElementById('clock').textContent = timeString;
 }
-setInterval(updateClock, 1000); // update every second
-updateClock(); // initial call
+setInterval(updateClock, 1000);
+updateClock(); // Initial call
 
-// Stopwatch variables
-let stopwatchInterval = null;
-let elapsedSeconds = 0;
-
-function formatTime(seconds) {
-  const hrs = Math.floor(seconds / 3600).toString().padStart(2, '0');
-  const mins = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-  const secs = (seconds % 60).toString().padStart(2, '0');
-  return `${hrs}:${mins}:${secs}`;
-}
+// Stopwatch
+let timer;
+let [hours, minutes, seconds] = [0, 0, 0];
+let running = false;
 
 function updateStopwatch() {
-  elapsedSeconds++;
-  document.getElementById('stopwatch').textContent = formatTime(elapsedSeconds);
+  const display = document.getElementById('stopwatch');
+  const formatted =
+    String(hours).padStart(2, '0') + ':' +
+    String(minutes).padStart(2, '0') + ':' +
+    String(seconds).padStart(2, '0');
+  display.textContent = formatted;
 }
 
-function startStopwatch() {
-  if (!stopwatchInterval) {
-    stopwatchInterval = setInterval(updateStopwatch, 1000);
+function start() {
+  if (!running) {
+    running = true;
+    timer = setInterval(() => {
+      seconds++;
+      if (seconds === 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes === 60) {
+          minutes = 0;
+          hours++;
+        }
+      }
+      updateStopwatch();
+    }, 1000);
   }
 }
 
-function stopStopwatch() {
-  clearInterval(stopwatchInterval);
-  stopwatchInterval = null;
+function stop() {
+  clearInterval(timer);
+  running = false;
 }
 
-function resetStopwatch() {
-  stopStopwatch();
-  elapsedSeconds = 0;
-  document.getElementById('stopwatch').textContent = '00:00:00';
+function reset() {
+  clearInterval(timer);
+  running = false;
+  [hours, minutes, seconds] = [0, 0, 0];
+  updateStopwatch();
 }
+
+window.onload = updateStopwatch;
