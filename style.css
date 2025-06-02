@@ -1,16 +1,16 @@
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
   text-align: center;
   margin-top: 50px;
 }
 
 .container {
-  background: white;
+  background-color: #fff;
   padding: 30px;
   border-radius: 12px;
   display: inline-block;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
 #clock, #stopwatch {
@@ -22,10 +22,10 @@ button {
   padding: 10px 20px;
   margin: 5px;
   font-size: 18px;
-  border: none;
   background-color: #007bff;
-  color: white;
+  border: none;
   border-radius: 8px;
+  color: white;
   cursor: pointer;
 }
 
